@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuerpo — Мастерская по телу | Тольятти</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body { 
+        background-color: #fcf9f6; /* Тёплый телесный/кремовый */
+        color: #2a2422; 
+        font-family: 'Inter', sans-serif; 
+        line-height: 1.7; 
+        overflow-x: hidden; 
+        -webkit-font-smoothing: antialiased;
+    }
+    
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .flex { display: flex; }
+    .flex-col { display: flex; flex-direction: column; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .grid { display: grid; }
+    .gap-4 { gap: 16px; }
+    .gap-8 { gap: 32px; }
+
+    .text-muted { color: #8a7f7a; }
+    .text-accent { color: #a67c52; } /* Тёплое золото/карамель */
+    
+    h1, h2, h3, .font-serif { font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+
+    /* Фоновое свечение */
+    .ambient-light {
+        position: absolute; top: -10%; right: -10%; width: 600px; height: 600px;
+        background: radial-gradient(circle, rgba(166, 124, 82, 0.06) 0%, rgba(252, 249, 246, 0) 70%);
+        border-radius: 50%; z-index: -1; pointer-events: none;
+    }
+
+    /* Навигация (Стекло) */
+    nav { 
+        position: fixed; top: 0; width: 100%; z-index: 50; 
+        background: rgba(252, 249, 246, 0.8); 
+        backdrop-filter: blur(20px); 
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.04); 
+    }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; letter-spacing: 2px; color: #2a2422; text-transform: uppercase; }
+    .nav-links { display: none; gap: 40px; font-weight: 400; font-size: 14px; color: #8a7f7a; }
+    .nav-links a { transition: color 0.3s; }
+    .nav-links a:hover { color: #a67c52; }
+    
+    /* Кнопки */
+    .btn { 
+        display: inline-flex; align-items: center; justify-content: center;
+        padding: 14px 32px; border-radius: 100px; font-weight: 500; 
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+        cursor: pointer; border: none; font-size: 14px; letter-spacing: 0.5px;
+    }
+    .btn-primary { 
+        background: #a67c52; color: #ffffff; 
+        box-shadow: 0 4px 20px rgba(166, 124, 82, 0.2); 
+    }
+    .btn-primary:hover { 
+        background: #8f6743; 
+        transform: translateY(-2px); 
+        box-shadow: 0 8px 30px rgba(166, 124, 82, 0.3); 
+    }
+    .btn-outline { 
+        border: 1px solid #d6cec7; color: #2a2422; background: transparent; 
+    }
+    .btn-outline:hover { 
+        border-color: #a67c52; color: #a67c52; background: #fff;
+    }
+
+    /* Hero */
+    .hero { padding: 180px 0 100px; position: relative; }
+    .hero-grid { display: grid; grid-template-columns: 1fr; gap: 64px; align-items: center; }
+    .hero h1 { 
+        font-size: 56px; line-height: 1.1; font-weight: 500; 
+        margin-bottom: 24px; color: #2a2422; 
+    }
+    .hero p { font-size: 17px; color: #8a7f7a; margin-bottom: 40px; max-width: 480px; font-weight: 300; }
+    
+    /* Картинка с аркой (тренд в beauty) */
+    .hero-img-wrap { position: relative; border-radius: 200px 200px 24px 24px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.08); }
+    .hero-img { width: 100%; height: 600px; object-fit: cover; display: block; transition: transform 0.7s; }
+    .hero-img-wrap:hover .hero-img { transform: scale(1.03); }
+
+    /* Секции */
+    .section { padding: 120px 0; border-top: 1px solid rgba(0,0,0,0.04); position: relative; }
+    .section-title { font-size: 44px; margin-bottom: 16px; color: #2a2422; }
+    
+    /* Карточки услуг (лёгкие, воздушные) */
+    .service-card { 
+        background: #ffffff; border: 1px solid #eee8e2; border-radius: 20px; 
+        padding: 40px; transition: all 0.4s ease; display: flex; flex-direction: column;
+    }
+    .service-card:hover { 
+        border-color: #a67c52; 
+        box-shadow: 0 20px 40px rgba(166, 124, 82, 0.06); 
+        transform: translateY(-5px);
+    }
+    .service-card h3 { font-size: 26px; margin-bottom: 12px; color: #2a2422; }
+    .service-desc { color: #8a7f7a; font-size: 15px; margin-bottom: 24px; flex-grow: 1; }
+    .service-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f0ebe6; padding-top: 20px; margin-top: auto; }
+    .service-time { font-size: 13px; color: #b0a8a2; text-transform: uppercase; letter-spacing: 1px; }
+    .service-price { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; color: #a67c52; }
+
+    /* Философия */
+    .philosophy-box { text-align: center; max-width: 800px; margin: 0 auto; }
+    .philosophy-quote { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-style: italic; color: #a67c52; line-height: 1.4; margin-bottom: 24px; }
+    .philosophy-author { font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: #b0a8a2; }
+
+    /* Форма */
+    .contact-box { background: #ffffff; border: 1px solid #eee8e2; border-radius: 24px; padding: 48px; max-width: 600px; margin: 0 auto; box-shadow: 0 20px 50px rgba(0,0,0,0.03); }
+    .form-input { width: 100%; padding: 16px 20px; border-radius: 12px; border: 1px solid #eee8e2; background: #fcf9f6; color: #2a2422; margin-bottom: 16px; outline: none; font-family: 'Inter', sans-serif; font-size: 15px; transition: all 0.3s; }
+    .form-input:focus { border-color: #a67c52; background: #fff; box-shadow: 0 0 0 4px rgba(166, 124, 82, 0.1); }
+
+    /* Футер */
+    footer { padding: 48px 0; border-top: 1px solid #eee8e2; text-align: center; color: #b0a8a2; font-size: 14px; }
+
+    /* Адаптив */
+    @media (min-width: 768px) {
+        .nav-links { display: flex; }
+        .hero-grid { grid-template-columns: 1fr 1fr; }
+        .hero h1 { font-size: 64px; }
+        .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+</style>
+</head>
+<body>
+
+<div class="ambient-light"></div>
+
+<!-- Навигация -->
+<nav>
+    <div class="container nav-inner">
+        <div class="logo">Cuerpo</div>
+        <div class="nav-links">
+            <a href="#services">Услуги</a>
+            <a href="#contact">Запись</a>
+        </div>
+        <a href="#contact" class="btn btn-primary" style="padding: 12px 24px; font-size: 13px;">Записаться</a>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="container hero-grid">
+        <div>
+            <h1>Скульпторы<br>твоего тела.</h1>
+            <p>Мастерская по телу Cuerpo в Тольятти. Авторские методики массажа, скульптурный массаж лица и SPA-ритуалы для восстановления и преображения.</p>
+            <div class="flex gap-4" style="flex-wrap: wrap;">
+                <a href="#contact" class="btn btn-primary">Записаться на сеанс</a>
+                <a href="#services" class="btn btn-outline">Услуги и цены</a>
+            </div>
+        </div>
+        <div class="hero-img-wrap">
+            <!-- Замени на реальное фото Cuerpo, если найдешь -->
+            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1200&auto=format&fit=crop" alt="Массаж Cuerpo" class="hero-img">
+        </div>
+    </div>
+</section>
+
+<!-- Услуги -->
+<section id="services" class="section" style="background: #ffffff;">
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 64px;">
+            <h2 class="section-title">Наши ритуалы</h2>
+            <p class="text-muted" style="max-width: 600px; margin: 0 auto;">Каждая программа разработана для конкретного запроса тела. Работаем по предварительной записи.</p>
+        </div>
+
+        <div class="grid gap-8 services-grid">
+            <!-- Услуга 1 -->
+            <div class="service-card">
+                <h3>Авторский массаж тела</h3>
+                <p class="service-desc">Глубокая проработка мышц по авторской методике. Восстанавливает тонус, снимает зажимы и возвращает легкость.</p>
+                <div class="service-meta">
+                    <span class="service-time">60–90 мин</span>
+                    <span class="service-price">от 3 500 ₽</span>
+                </div>
+            </div>
+            
+            <!-- Услуга 2 -->
+            <div class="service-card">
+                <h3>Скульптурный массаж лица</h3>
+                <p class="service-desc">Буккальный массаж и программа «Моментальное преображение». Работа с овалом лица и естественным лифтингом.</p>
+                <div class="service-meta">
+                    <span class="service-time">45 мин</span>
+                    <span class="service-price">от 2 500 ₽</span>
+                </div>
+            </div>
+
+            <!-- Услуга 3 -->
+            <div class="service-card">
+                <h3>Испанский массаж</h3>
+                <p class="service-desc">Экзотическая техника с маслами. Глубокое расслабление, улучшение кровообращения и настроения.</p>
+                <div class="service-meta">
+                    <span class="service-time">60 мин</span>
+                    <span class="service-price">от 4 000 ₽</span>
+                </div>
+            </div>
+
+            <!-- Услуга 4 -->
+            <div class="service-card">
+                <h3>SPA-программы</h3>
+                <p class="service-desc">Комплексные ритуалы для одного или двоих. Массаж, кедровая бочка, сауна с гималайской солью.</p>
+                <div class="service-meta">
+                    <span class="service-time">120 мин</span>
+                    <span class="service-price">от 6 000 ₽</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Философия -->
+<section id="about" class="section">
+    <div class="container philosophy-box">
+        <p class="philosophy-quote">"Мы не просто делаем массаж. Мы лепим тело, возвращая ему форму, легкость и уверенность."</p>
+        <p class="philosophy-author">— Мастерская по телу Cuerpo</p>
+        
+        <div style="margin-top: 64px; display: flex; justify-content: center; gap: 64px; flex-wrap: wrap;">
+            <div style="text-align: center;">
+                <div class="font-serif" style="font-size: 48px; color: #a67c52; line-height: 1;">8+</div>
+                <div class="text-muted" style="font-size: 14px; margin-top: 8px;">лет практики</div>
+            </div>
+            <div style="text-align: center;">
+                <div class="font-serif" style="font-size: 48px; color: #a67c52; line-height: 1;">1000+</div>
+                <div class="text-muted" style="font-size: 14px; margin-top: 8px;">довольных клиентов</div>
+            </div>
+            <div style="text-align: center;">
+                <div class="font-serif" style="font-size: 48px; color: #a67c52; line-height: 1;">10</div>
+                <div class="text-muted" style="font-size: 14px; margin-top: 8px;">авторских программ</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Форма -->
+<section id="contact" class="section" style="background: #ffffff;">
+    <div class="container">
+        <div class="contact-box">
+            <h2 class="section-title" style="font-size: 36px; text-align: center;">Записаться на сеанс</h2>
+            <p class="text-muted" style="text-align: center; margin-bottom: 32px;">Оставьте контакты, и мы подберем удобное время. Работаем ежедневно с 9:00 до 21:00.</p>
+            
+            <form onsubmit="event.preventDefault(); this.querySelector('button').innerText='Отправлено ✓'; this.reset();">
+                <input type="text" class="form-input" placeholder="Ваше имя" required>
+                <input type="tel" class="form-input" placeholder="Номер телефона" required>
+                <select class="form-input" style="appearance: none; cursor: pointer; color: #8a7f7a;">
+                    <option value="" disabled selected>Выберите программу (необязательно)</option>
+                    <option value="body">Авторский массаж тела</option>
+                    <option value="face">Скульптурный массаж лица</option>
+                    <option value="spa">SPA-программа</option>
+                    <option value="other">Другое</option>
+                </select>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 18px; font-size: 16px; margin-top: 8px;">Записаться</button>
+            </form>
+            <p style="margin-top: 20px; font-size: 13px; color: #b0a8a2; text-align: center;">Или позвоните: <a href="tel:+79278923013" style="color: #a67c52; font-weight: 500;">+7 (927) 892-30-13</a></p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="logo" style="font-size: 24px; margin-bottom: 16px; color: #2a2422;">Cuerpo</div>
+        <p>Мастерская по телу · Тольятти, Приморский бульвар, 57</p>
+        <p style="margin-top: 8px; font-size: 13px;">© 2026. Демонстрационный сайт для портфолио.</p>
+    </div>
+</footer>
+
+</body>
+</html>
